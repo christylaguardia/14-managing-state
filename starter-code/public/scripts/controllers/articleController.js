@@ -3,7 +3,10 @@
 (function(module) {
   const articleController = {};
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does: passes the page context to the articleView.index function
+  // What it calls: articleView.index in articleView.js
+  // Where it's called: repos.js
   articleController.index = (ctx) => articleView.index(ctx.articles);
 
   // REVIEW: Middleware for grabbing one article by ID:
@@ -13,7 +16,9 @@
       next();
     };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does: calls the findWhere function for an article_id, and calls back articleData
+  // What it calls: Article.findWhere in article.js
     Article.findWhere('article_id', ctx.params.article_id, articleData);
   };
 

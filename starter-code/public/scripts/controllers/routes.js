@@ -1,5 +1,5 @@
 'use strict';
-
+// page(context, function)
 page('/', articleController.loadAll, articleController.index);
 page('/about', aboutController.index);
 page('/article/:article_id', articleController.loadById, articleController.index);
@@ -11,5 +11,6 @@ page('/author', '/');
 page('/author/:authorName', articleController.loadByAuthor, articleController.index);
 page('/category/:categoryName', articleController.loadByCategory, articleController.index);
 
-// COMMENT: What is this function doing?
+// xCOMMENT: What is this function doing?
+// What it does: intializes the page and enables the page routes above
 page();

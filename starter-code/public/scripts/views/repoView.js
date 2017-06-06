@@ -3,6 +3,7 @@
 (function(module) {
   const repoView = {};
 
+  // QUESTION: why is this not repoView.ui = function() {}
   const ui = function() {
     let $about = $('#about');
 
@@ -12,7 +13,13 @@
 
   const render = Handlebars.compile($('#repo-template').text());
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it's doing:
+  //  1) emptys the existing list repos
+  //  2) hides all siblings of about
+  //  3) add all the repos to the end of the aboout page ul that have a name
+  // Where it's called: aboutController.index in aboutController.js
+  // What it calls: ui function above
   repoView.index = function() {
     ui();
 

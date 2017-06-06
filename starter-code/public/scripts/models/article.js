@@ -8,23 +8,31 @@
   Article.all = [];
 
   // REVIEW: We no longer need our prototype toHTML() method. This functionality has been relocated to the view.
-  // Article.prototype.toHtml = function() {
-  //   var template = Handlebars.compile($('#article-template').text());
-  //
-  //   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
-  //   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
-  //   this.body = marked(this.body);
-  //
-  //   return template(this);
-  // };
+  Article.prototype.toHtml = function() {
+    var template = Handlebars.compile($('#article-template').text());
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+    this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
+    this.body = marked(this.body);
+
+    return template(this);
+  };
+
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does: 1) sorts all the articles by desc date published 2) sets the Article.all to the sorted array
+  // Where it's called: in the fetchAll function below
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
     Article.all = rows.map(ele => new Article(ele));
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does:
+  //  1) makes the ajax call for /articles
+  //  2) returns list of all articles
+  //  3) sorts the articles and sets as Article.all
+  // Where it's called: articleController.loadAll in articleController.js and initAdminPage in adminView.js
+  // What it calls: Article.loadAll above
   Article.fetchAll = callback => {
     $.get('/articles')
     .then(
@@ -59,7 +67,14 @@
                       }, []);
   };
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does:
+  //  1) get list of all unique authors
+  //  2) for each author, get their articles
+  //  3) get a count of words in each article
+  //  4) then reduce array to sum up the words in all their articles
+  // Where it's called: initAdminPage in adminView.js
+  // What it calls: allAuthors function above
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
@@ -80,7 +95,11 @@
   };
 
 
-    // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?Article.truncateTable = callback => {
+    // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    // What it does: makes the ajax call to delete all records in the article table
+    // Where it's called: nowhere
+    // What it calls: does not call other functions
+  Article.truncateTable = callback => {
     $.ajax({
       url: '/articles',
       method: 'DELETE',

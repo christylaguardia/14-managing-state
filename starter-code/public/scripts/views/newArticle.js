@@ -1,7 +1,14 @@
 (function() {
   const newArticle = {};
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // xCOMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // What it does:
+  //  1) showing all sections sith class tab-content
+  //  2) hiding the export-field label
+  //  3) enable select all text when focused on article-json
+  //  4) enable creating new article object when each form field is filled out
+  // Where it's called: below
+  // What it calls: newArticle.create below
   newArticle.initNewArticlePage = function() {
     $('.tab-content').show();
     $('#export-field').hide();
